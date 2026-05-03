@@ -1,0 +1,55 @@
+{
+  "entities": {
+    "SovereigntyMetric": {
+      "title": "Sovereignty Metric Record",
+      "description": "Real-time performance data for a specific governance node.",
+      "type": "object",
+      "properties": {
+        "nodeId": { "type": "string", "description": "Unique ID of the village or district node." },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "giniCoefficient": { "type": "number" },
+        "unemploymentRate": { "type": "number" },
+        "affordabilityIndex": { "type": "number" },
+        "corruptionScore": { "type": "number", "description": "Derived from anomaly detection layer." }
+      },
+      "required": ["nodeId", "timestamp", "affordabilityIndex"]
+    },
+    "HarmAlert": {
+      "title": "Macro-Scale Harm Alert",
+      "description": "Triggered when the Harm Function H exceeds tolerance threshold T.",
+      "type": "object",
+      "properties": {
+        "score": { "type": "number" },
+        "severity": { "type": "string", "enum": ["WARNING", "CRITICAL"] },
+        "triggeredActions": { "type": "array", "items": { "type": "string" } },
+        "affectedDepartment": { "type": "string" }
+      },
+      "required": ["score", "severity"]
+    },
+    "SuccessDNA": {
+      "title": "Success DNA Pattern",
+      "description": "A validated high-performing genotype for replication.",
+      "type": "object",
+      "properties": {
+        "patternId": { "type": "string" },
+        "genotypes": { "type": "array", "items": { "type": "object" } },
+        "fitnessScore": { "type": "number" },
+        "contextSimilarity": { "type": "object" }
+      }
+    }
+  },
+  "firestore": {
+    "/metrics/{nodeId}/snapshots/{snapshotId}": {
+      "schema": "SovereigntyMetric",
+      "description": "Time-series ledger of regional performance."
+    },
+    "/alerts/{alertId}": {
+      "schema": "HarmAlert",
+      "description": "System-wide triggers for automated enforcement."
+    },
+    "/genetics/library/patterns/{patternId}": {
+      "schema": "SuccessDNA",
+      "description": "The 'Success DNA' library for recursive cloning."
+    }
+  }
+}
